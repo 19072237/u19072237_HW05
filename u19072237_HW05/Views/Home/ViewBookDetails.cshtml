@@ -1,0 +1,52 @@
+﻿@model  u19072237_HW05.ViewModels.BorrowsVM
+@using u19072237_HW05.Models
+<br />
+
+@{
+    ViewBag.Title = "Book Details";
+}
+<br />
+<div class="container">
+    <h2>@Model.Book.Name</h2>
+    <h2>Borrows-@Model.Borrows.Count</h2><br />
+    @Html.ActionLink("View Students", "ViewStudents", "Home",new {bookId = Model.Book.BookID }, new { @class = "btn btn-primary" })
+    <br />
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Taken Date
+            </th>
+            <th>
+                Brought Date
+            </th>
+            <th>
+                Taken By
+            </th>
+        </tr>
+
+
+        @foreach (var borrow in Model.Borrows)
+        {
+            <tr>
+                <td>
+                    @borrow.BorrowID
+                </td>
+                <td>
+                    @borrow.TakenDate
+                </td>
+                <td>
+                    @borrow.BroughtDate
+                </td>
+                <td>
+                    @Model.GetStudent(borrow.StudentID)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,77 @@
+﻿@model  u19072237_HW05.ViewModels.StudentVM
+
+
+
+
+
+<div class="container">
+    <h2>Students</h2>
+    <h4>Book-@Model.Books.Name</h4>
+    <br />
+    @{using (Html.BeginForm("SearchStudents", "Home", FormMethod.Post))
+        {
+            <div class="row">
+                    <div class="col-sm-3">
+                        @Html.TextBox("StudentName", "", new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.DropDownList("ClassName", new SelectList(Model.Students.Select(a => a.Class).ToList()), "Select Class", new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary" style="width:50% ;max-width:none; display:inline">Search</button>
+                    </div>
+                     <br />
+                
+            </div>
+
+        }
+    }
+
+
+
+
+    <br />
+    @Html.ActionLink("Clear Search ", "ViewStudents", "Home", new { bookId = Model.Books.BookID }, new { @class = "btn btn-success" })
+    <br>
+    <br />
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Class</th>
+            <th>Points</th>
+            <th>Borrow Book</th>
+        </tr>
+
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>
+                    @student.StudentID
+                </td>
+                <td>
+                    @student.Name
+                </td>
+                <td>
+                    @student.Surname
+                </td>
+                <td>
+                    @student.Class
+                </td>
+                <td>
+                    @student.Point
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary" style="width:50% ;max-width:none; display:inline">Borrow Book</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+
+

@@ -1,0 +1,95 @@
+﻿@model List<u19072237_HW05.ViewModels.BookVM>
+
+<br />
+<br />
+<div class="container">
+    <h2>Books</h2><br />
+    @{
+
+        using (Html.BeginForm("SearchBook", "Home", FormMethod.Post))
+        {
+        <div class="row">
+            
+            <div class="col-md-3" >
+                @Html.TextBox("BookName", "", new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-3">
+                @Html.DropDownList("AuthorName", new SelectList(Model.Select(a => a.Author.Surname)), "Select Author Name", new { @class = "form-control" })
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("TypeName", new SelectList(Model.Select(a => a.Type.Name)), "Select Type Name", new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:20%;max-width:none; display:inline">Search</button><br />
+        </div>
+
+        }
+    }
+
+    <br />
+    @Html.ActionLink("Clear Searching", "ViewBooks", "Home", null, new { @class = "btn btn-success" })
+
+
+
+    <br />
+    <br />
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Auther
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Page Count
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>
+                    @book.Book.BookID
+                </td>
+                <td>
+                    @book.Book.Name
+                </td>
+                <td>
+                    @book.Author.Surname
+                </td>
+                <td>
+                    @book.Type.Name
+                </td>
+                <td>
+                    @book.Book.PageCount
+                </td>
+                <td>
+                    @book.Book.Point
+                </td>
+                <td>
+                    @book.Status
+                </td>
+                <td>
+                    @Html.ActionLink("View", "ViewBookDetails", "Home", new { bookId = book.Book.BookID }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,55 @@
+﻿@model  u19072237_HW05.ViewModels.BookVM
+
+<br />
+<br />
+<h1>Books</h1>
+<br />
+@using (Html.BeginForm("SearchByText", "Home", FormMethod.Post, new { style = "width:100%" }))
+{
+    <input type="text" style="width:20%;max-width:none; display:inline" name="SearchString" class="form-control" placeholder="Book Name" />
+    <input type="text" style="width:20%;max-width:none; display:inline" name="SearchString" class="form-control" placeholder="Auther Name" />
+    <input type="text" style="width:20%;max-width:none; display:inline" name="SearchString" class="form-control" placeholder="Type Name" />
+
+
+
+    <button type="submit" class="btn btn-primary">Search Book</button>
+
+}
+<br />
+@Html.ActionLink("Clear Search", "SearchBookView", "Home", new { @class = "btn btn-primary" })
+
+
+
+
+
+
+
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Type</th>
+        <th>Page Count</th>
+        <th>Points</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var book in Model.Books)
+    {
+        <tr>
+            <td>@book.BookID </td>
+            <td>@book.Name</td>
+            <td>@Model.GetAuthor(book.AutherID)</td>
+            <td>@Model.GetTypes(book.TypeID)</td>
+            <td>@book.PageCount </td>
+            <td>@book.Point</td>
+            <td>Available</td>
+            <td> @Html.ActionLink("View", "ViewBorrows", "Home", new { bookId = @book.BookID }, new { @class = "btn btn-primary" })</td>
+        </tr>
+
+    }
+
+</table>
